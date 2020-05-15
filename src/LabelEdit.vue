@@ -1,7 +1,7 @@
 <template>
 	<div class="vlabeledit">
 		<div class="vlabeledit-label" @click="onLabelClick" v-if="!edit">{{vlabel}}</div>
-		<input type="text" v-if="edit" v-model="label" v-on:blur="updateTextBlur" ref="labeledit" :placeholder="vplaceholder" class="vlabeledit-input" @keyup.enter="updateTextEnter"/>
+		<input :type="type" v-if="edit" v-model="label" v-on:blur="updateTextBlur" ref="labeledit" :placeholder="vplaceholder" class="vlabeledit-input" @keyup.enter="updateTextEnter"/>
 	</div>
 </template>
 <script>
@@ -14,7 +14,15 @@ export default{
 			empty: 'Enter some text value', // empty place holder .. replace with your own localization for default
 		}
 	},
-	props: ['text','placeholder'], // parent should provide :text or :placeholder
+	props: { 
+		// parent should provide :text or :placeholder
+		text: String,
+		placeholder: String,
+		type: {
+			type: String,
+			required: true,
+			default: 'text',
+		},
 	methods: {
 		initText: function(){
 			if(this.text==''||this.text==undefined){
